@@ -1,0 +1,51 @@
+<!-- Copyright (c) 2022 Ivan Teplov -->
+<script>
+  import { fade, fly } from "svelte/transition"
+
+  export let minHeight = "33vh"
+  export let hide = () => {}
+</script>
+
+<div class="Sheet">
+  <div class="SheetOverlay" on:click={hide} transition:fade />
+  <div
+    class="SheetContents column"
+    style="min-height: {minHeight}"
+    transition:fly={{ y: 200 }}
+  >
+    <slot />
+  </div>
+</div>
+
+<style>
+  .Sheet {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    z-index: 999;
+  }
+
+  .SheetOverlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    background: #0008;
+  }
+
+  .SheetContents {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+
+    padding: 1rem;
+    border-radius: 1rem 1rem 0 0;
+    background: var(--background);
+  }
+</style>

@@ -19,6 +19,7 @@
     "svelte": "^3.0.0"
   },
   "dependencies": {
+    "jsbarcode": "^3.11.5",
     "sirv-cli": "^2.0.0"
   }
 }
