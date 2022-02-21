@@ -6,6 +6,8 @@
   --divider: #cccccc;
   --primary: #4d4bf1;
   --danger: rgb(192, 87, 87);
+
+  font-size: 1.25rem;
 }
 
 * {
@@ -36,11 +38,11 @@ body {
 }
 
 h1 {
-  font-size: 3.5em;
+  font-size: 2.5rem;
 }
 
 h2 {
-  font-size: 2.5em;
+  font-size: 2rem;
 }
 
 a {
@@ -65,7 +67,7 @@ textarea {
   padding: 0.5em 1em;
   box-sizing: border-box;
 
-  border: 0.0625em solid var(--divider);
+  border: 0.125em solid var(--divider);
   border-radius: 0.5em;
 }
 

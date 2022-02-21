@@ -83,25 +83,35 @@
     >
       <h2>Add a card</h2>
 
-      {#if formMessage}
-        <p class="FormMessage">{formMessage}</p>
-      {/if}
+      <div class="column fill center">
+        {#if formMessage}
+          <p class="FormMessage">{formMessage}</p>
+        {/if}
 
-      <form on:submit|preventDefault={addCard} class="Form column">
-        <input
-          type="text"
-          placeholder="Store name"
-          bind:value={storeName}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Card number"
-          bind:value={cardNumber}
-          required
-        />
-        <button type="submit">Add</button>
-      </form>
+        <form on:submit|preventDefault={addCard} class="Form column">
+          <div class="column">
+            <label for="store-name">Store name</label>
+            <input
+              type="text"
+              id="store-name"
+              placeholder="Store name"
+              bind:value={storeName}
+              required
+            />
+          </div>
+          <div class="column">
+            <label for="card-number">Card number</label>
+            <input
+              type="text"
+              id="card-number"
+              placeholder="Card number"
+              bind:value={cardNumber}
+              required
+            />
+          </div>
+          <button type="submit">Add</button>
+        </form>
+      </div>
     </Sheet>
   {/if}
 
@@ -128,8 +138,17 @@
   }
 
   .Form {
-    gap: 0.5rem;
+    gap: 1rem;
     margin-top: 1rem;
+  }
+
+  .Form > div {
+    gap: 0.5rem;
+  }
+
+  .Form label {
+    font-weight: 500;
+    font-size: 1.25rem;
   }
 
   .FormMessage {
@@ -151,18 +170,5 @@
   .BigAddButton::before {
     content: "+";
     font-size: 3.5em;
-  }
-
-  /* Remove arrows for input[type=number] */
-  /* Chrome, Safari, Edge, Opera */
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-
-  /* Firefox */
-  input[type="number"] {
-    -moz-appearance: textfield;
   }
 </style>

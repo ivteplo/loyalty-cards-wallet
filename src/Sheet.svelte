@@ -2,7 +2,7 @@
 <script>
   import { fade, fly } from "svelte/transition"
 
-  export let minHeight = "33vh"
+  export let minHeight = "50vh"
   export let hide = () => {}
 </script>
 
@@ -13,6 +13,14 @@
     style="min-height: {minHeight}"
     transition:fly={{ y: 200 }}
   >
+    <button
+      type="button"
+      class="SheetCloseButton"
+      on:click={hide}
+      title="Close"
+    >
+      &times;
+    </button>
     <slot />
   </div>
 </div>
@@ -47,5 +55,17 @@
     padding: 1rem;
     border-radius: 1rem 1rem 0 0;
     background: var(--background);
+  }
+
+  .SheetCloseButton {
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    background: transparent;
+    color: inherit;
+
+    padding: 1rem 1rem 0.5rem 0.5rem;
+    font-size: 1.5rem;
   }
 </style>
