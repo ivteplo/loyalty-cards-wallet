@@ -4,26 +4,23 @@
   export let className = ""
 </script>
 
-<li class="Card column center {className}" on:click>
+<button class="Card column center {className}" type="button" on:click>
   {#if card}
     <b>{card.store}</b>
   {:else}
     <slot />
   {/if}
-</li>
+</button>
 
 <style>
   .Card {
     aspect-ratio: 3 / 2;
-    max-width: 25rem;
+    background: var(--background);
+    color: var(--foreground);
     padding: 1rem;
     border: 0.125rem solid var(--divider);
     border-radius: 1rem;
     box-sizing: border-box;
-  }
-
-  .Card.no-padding {
-    padding: 0;
   }
 
   .Card b {

@@ -1,8 +1,11 @@
 <!-- Copyright (c) 2022 Ivan Teplov -->
 <script>
   import Barcode from "jsbarcode"
+  import { createEventDispatcher } from "svelte"
 
   export let card
+
+  const dispatchEvent = createEventDispatcher()
 
   let svg
 
@@ -18,14 +21,35 @@
     svg.removeAttribute("width")
     svg.removeAttribute("height")
   })(card)
+
+  const editCard = () => dispatchEvent("edit")
+  const deleteCard = () => dispatchEvent("delete")
 </script>
 
 <div class="CardView column center">
-  <svg bind:this={svg} />
-  <code class="CardNumber">{card.number}</code>
+  <div class="column center">
+    <h2>{card.store}</h2>
+    <svg bind:this={svg} />
+    <code class="CardNumber">{card.number}</code>
+  </div>
+  <div class="row CardViewActions">
+    <button type="button" class="fill" on:click={editCard}>Edit</button>
+    <button type="button" class="fill danger" on:click={deleteCard}
+      >Delete</button
+    >
+  </div>
 </div>
 
 <style>
+  .CardView {
+    gap: 2rem;
+    justify-content: space-between;
+  }
+
+  .CardView h2 {
+    text-align: center;
+  }
+
   .CardView svg {
     width: 50vw;
     min-width: 15rem;
@@ -35,5 +59,10 @@
   .CardNumber {
     font-family: inherit;
     font-size: 2rem;
+  }
+
+  .CardViewActions {
+    gap: 1rem;
+    width: 100%;
   }
 </style>

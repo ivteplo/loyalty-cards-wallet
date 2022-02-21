@@ -6,6 +6,7 @@
   --divider: #cccccc;
   --primary: #4d4bf1;
   --danger: rgb(192, 87, 87);
+  --success: rgb(70, 161, 70);
 
   font-size: 1.25rem;
 }
@@ -34,7 +35,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
     Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 
-  -webkit-tap-highlight-color: tranpsarent;
+  -webkit-tap-highlight-color: transparent;
 }
 
 h1 {
@@ -87,6 +88,11 @@ button {
   font-weight: 500;
 
   transition: filter 0.3s;
+}
+
+button.danger:not(:disabled) {
+  color: var(--danger);
+  background-color: var(--background);
 }
 
 button:disabled {

@@ -3,99 +3,242 @@
   import Card from "./Card.svelte"
   import Sheet from "./Sheet.svelte"
   import CardView from "./CardView.svelte"
+  import Spinner from "./Spinner.svelte"
 
-  let showAddCardSheet = false
-  let cards = []
+  import localForage from "localforage"
+  import { onMount } from "svelte"
+  import { v4 as uuid } from "uuid"
+  import { fade } from "svelte/transition"
 
-  // Form for adding cards:
-  let formMessage = ""
-  let storeName = ""
-  let cardNumber = ""
+  let cards
 
-  function addCard() {
-    if (!storeName) {
-      formMessage = "Please, specify store name"
-    } else if (!/\d+/.test(cardNumber)) {
-      formMessage = "Invalid card number"
-    } else {
-      cards = [
-        ...cards,
-        {
-          store: storeName,
-          number: cardNumber,
-        },
-      ]
+  $: {
+    localForage
+      .setItem("cards", cards || [])
+      .then(() => console.log("Saved"))
+      .catch((error) => console.error(error))
+  }
 
-      storeName = ""
-      cardNumber = ""
-      formMessage = ""
+  onMount(async () => {
+    try {
+      cards = (await localForage.getItem("cards")) || []
+    } catch (error) {
+      console.error(error)
+    }
+  })
+
+  // Form for adding/editing cards:
+  /**
+   * @type {{
+   *   show: boolean,
+   *   type: "add" | "edit",
+   *   message: {
+   *     type: "error" | "success",
+   *     text: string
+   *   },
+   *   storeName: string,
+   *   cardNumber: string,
+   *   cardID?: string
+   * }}
+   */
+  let cardForm = {
+    show: false,
+    type: "add",
+    message: {
+      type: "",
+      text: "",
+    },
+    storeName: "",
+    cardNumber: "",
+    cardID: undefined,
+  }
+
+  const hideCardForm = () => {
+    cardForm = {
+      ...cardForm,
+      show: false,
+      message: {
+        type: "",
+        text: "",
+      },
+      storeName: "",
+      cardNUmber: "",
+      cardID: undefined,
     }
   }
 
+  const showCardForm = () => {
+    cardForm = {
+      ...cardForm,
+      show: true,
+    }
+  }
+
+  function addCard() {
+    cards = [
+      ...(cards || []),
+      {
+        id: uuid(),
+        store: cardForm.storeName,
+        number: cardForm.cardNumber,
+      },
+    ]
+
+    cardForm.message = {
+      type: "success",
+      text: "Added successfully",
+    }
+
+    cardForm.storeName = ""
+    cardForm.cardNumber = ""
+
+    cardForm = cardForm
+  }
+
+  function editCard(card) {
+    cardForm = {
+      show: true,
+      type: "edit",
+      message: "",
+      storeName: card.store,
+      cardNumber: card.number,
+      cardID: card.id,
+    }
+  }
+
+  function saveCard(card) {
+    const index = cards.findIndex((child) => child.id === card.id)
+    cards[index] = card
+    cards = cards
+
+    cardForm.message = {
+      type: "success",
+      text: "Card was updated successfully",
+    }
+
+    cardForm = cardForm
+  }
+
+  function validateCardFormInput() {
+    if (!cardForm.storeName) {
+      cardForm.message = {
+        type: "error",
+        text: "Please, specify store name",
+      }
+    } else if (!/^\d+$/.test(cardForm.cardNumber)) {
+      cardForm.message = {
+        type: "error",
+        text: "Invalid card number",
+      }
+    } else {
+      return true
+    }
+
+    return false
+  }
+
+  function submitCardForm() {
+    if (validateCardFormInput()) {
+      if (cardForm.type === "add") {
+        addCard()
+      } else {
+        saveCard({
+          ...shownCard,
+          store: cardForm.storeName,
+          number: cardForm.cardNumber,
+        })
+      }
+    }
+
+    cardForm = cardForm
+  }
+
   // Viewing cards
-  let shownCard
+  let shownCardIndex
+  $: shownCard = cards ? cards[shownCardIndex] : undefined
 </script>
 
 <main class="column fill">
   <h1>Wallet</h1>
 
-  {#if cards.length === 0}
+  {#if cards === undefined}
+    <div class="column center fill">
+      <Spinner />
+    </div>
+  {:else if cards.length === 0}
     <div class="fill column center">
       <p style="font-weight: 500; margin-bottom: 0.5rem">
         Currently you don't have any cards
       </p>
-      <button
-        type="button"
-        on:click={() => {
-          showAddCardSheet = true
-        }}>Click here to add a card</button
+      <button type="button" on:click={() => showCardForm()}
+        >Click here to add a card</button
       >
     </div>
   {:else}
     <ul class="CardList row wrap">
-      {#each cards as card}
-        <Card
-          {card}
-          className="fill"
-          on:click={() => {
-            shownCard = card
-          }}
-        />
+      {#each cards as card, cardIndex}
+        <li class="column fill">
+          <Card
+            {card}
+            className="fill"
+            on:click={() => {
+              shownCardIndex = cardIndex
+            }}
+          />
+        </li>
       {/each}
 
-      <Card card={null} className="fill no-padding">
-        <button
-          type="button"
-          class="fill column center BigAddButton"
+      <li class="column fill">
+        <Card
+          card={null}
           on:click={() => {
-            showAddCardSheet = true
-          }}>Add a card</button
+            showCardForm()
+          }}
         >
-      </Card>
+          <span class="BigAddButtonText column fill center"> Add a card </span>
+        </Card>
+      </li>
     </ul>
   {/if}
 
-  {#if showAddCardSheet}
+  {#if shownCard}
     <Sheet
+      minHeight="75vh"
       hide={() => {
-        showAddCardSheet = false
+        shownCardIndex = undefined
       }}
     >
-      <h2>Add a card</h2>
+      <div class="fill column center">
+        <CardView card={shownCard} on:edit={() => editCard(shownCard)} />
+      </div>
+    </Sheet>
+  {/if}
+
+  {#if cardForm.show}
+    <Sheet hide={() => hideCardForm()}>
+      <h2>
+        {#if cardForm.type === "edit"}
+          Edit a card
+        {:else}
+          Add a card
+        {/if}
+      </h2>
 
       <div class="column fill center">
-        {#if formMessage}
-          <p class="FormMessage">{formMessage}</p>
+        {#if cardForm.message.text}
+          <p class="FormMessage {cardForm.message.type}" transition:fade>
+            {cardForm.message.text}
+          </p>
         {/if}
 
-        <form on:submit|preventDefault={addCard} class="Form column">
+        <form on:submit|preventDefault={submitCardForm} class="Form column">
           <div class="column">
             <label for="store-name">Store name</label>
             <input
               type="text"
               id="store-name"
               placeholder="Store name"
-              bind:value={storeName}
+              bind:value={cardForm.storeName}
               required
             />
           </div>
@@ -105,26 +248,18 @@
               type="text"
               id="card-number"
               placeholder="Card number"
-              bind:value={cardNumber}
+              bind:value={cardForm.cardNumber}
               required
             />
           </div>
-          <button type="submit">Add</button>
+          <button type="submit">
+            {#if cardForm.type === "edit"}
+              Save
+            {:else}
+              Add
+            {/if}
+          </button>
         </form>
-      </div>
-    </Sheet>
-  {/if}
-
-  {#if shownCard}
-    <Sheet
-      minHeight="75vh"
-      hide={() => {
-        shownCard = undefined
-      }}
-    >
-      <div class="fill column center">
-        <h2 style="text-align: center">{shownCard.store}</h2>
-        <CardView card={shownCard} />
       </div>
     </Sheet>
   {/if}
@@ -135,6 +270,10 @@
     list-style: none;
     margin-top: 2rem;
     gap: 1rem;
+  }
+
+  .CardList li {
+    flex-basis: 10rem;
   }
 
   .Form {
@@ -152,22 +291,31 @@
   }
 
   .FormMessage {
-    background: var(--danger);
+    transition: background-color 0.5s;
     color: var(--background);
-    padding: 1rem;
-    margin-top: 1rem;
+
+    padding: 0.5rem 1rem;
+    margin-bottom: 1rem;
+
+    width: calc(100% - 2rem);
     border-radius: 0.5em;
     font-size: 1.15em;
   }
 
-  .BigAddButton {
-    width: 100%;
-    font-size: 1.25em;
-    background-color: var(--divider);
-    color: var(--foreground);
+  .FormMessage.error {
+    background: var(--danger);
   }
 
-  .BigAddButton::before {
+  .FormMessage.success {
+    background: var(--success);
+  }
+
+  .BigAddButtonText {
+    width: 100%;
+    font-size: 1.25em;
+  }
+
+  .BigAddButtonText::before {
     content: "+";
     font-size: 3.5em;
   }
