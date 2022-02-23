@@ -273,6 +273,7 @@
               placeholder="Store name"
               bind:value={cardForm.storeName}
               required
+              autocomplete="off"
             />
           </div>
           <div class="column">
@@ -283,6 +284,7 @@
               placeholder="Card number"
               bind:value={cardForm.cardNumber}
               required
+              autocomplete="off"
             />
           </div>
           <button type="submit">
