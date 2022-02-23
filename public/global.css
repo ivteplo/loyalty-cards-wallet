@@ -4,6 +4,7 @@
   --background: #ffffff;
   --foreground: #000000;
   --divider: #cccccc;
+  --gray: #444;
   --primary: #4d4bf1;
   --danger: rgb(192, 87, 87);
   --success: rgb(70, 161, 70);
@@ -90,11 +91,6 @@ button {
   transition: filter 0.3s;
 }
 
-button.danger:not(:disabled) {
-  color: var(--danger);
-  background-color: var(--background);
-}
-
 button:disabled {
   background-color: var(--divider);
   color: var(--foreground);
@@ -106,6 +102,23 @@ button:not(:disabled):active {
 
 button:focus {
   border-color: var(--foreground);
+}
+
+button.danger:not(.filled):not(:disabled) {
+  color: var(--danger);
+  background-color: var(--background);
+  border: 0.125em solid var(--divider);
+}
+
+button.danger.filled:not(:disabled) {
+  color: var(--background);
+  background-color: var(--danger);
+}
+
+button.gray:not(:disabled) {
+  color: var(--gray);
+  background: var(--background);
+  border: 0.125em solid var(--divider);
 }
 
 .row,

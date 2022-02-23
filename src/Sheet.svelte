@@ -1,9 +1,12 @@
 <!-- Copyright (c) 2022 Ivan Teplov -->
 <script>
+  import { createEventDispatcher } from "svelte"
   import { fade, fly } from "svelte/transition"
 
+  const dispatchEvent = createEventDispatcher()
+  const hide = () => dispatchEvent("hide")
+
   export let minHeight = "50vh"
-  export let hide = () => {}
 </script>
 
 <div class="Sheet">

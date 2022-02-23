@@ -4,6 +4,7 @@
   import Sheet from "./Sheet.svelte"
   import CardView from "./CardView.svelte"
   import Spinner from "./Spinner.svelte"
+  import Alert from "./Alert.svelte"
 
   import localForage from "localforage"
   import { onMount } from "svelte"
@@ -51,6 +52,16 @@
     storeName: "",
     cardNumber: "",
     cardID: undefined,
+  }
+
+  let isCardDeletionDialogShown = false
+
+  const showCardDeletionDialog = () => {
+    isCardDeletionDialogShown = true
+  }
+
+  const hideCardDeletionDialog = () => {
+    isCardDeletionDialogShown = false
   }
 
   const hideCardForm = () => {
@@ -153,6 +164,23 @@
     cardForm = cardForm
   }
 
+  function deleteCard() {
+    const cardID = shownCard?.id
+
+    if (!cardID) {
+      return hideCardDeletionDialog()
+    }
+
+    const cardIndex = cards?.findIndex((card) => card.id === cardID) ?? -1
+
+    if (cardIndex) {
+      cards.splice(cardIndex, 1)
+      cards = cards
+    }
+
+    hideCardDeletionDialog()
+  }
+
   // Viewing cards
   let shownCardIndex
   $: shownCard = cards ? cards[shownCardIndex] : undefined
@@ -204,18 +232,22 @@
   {#if shownCard}
     <Sheet
       minHeight="75vh"
-      hide={() => {
+      on:hide={() => {
         shownCardIndex = undefined
       }}
     >
       <div class="fill column center">
-        <CardView card={shownCard} on:edit={() => editCard(shownCard)} />
+        <CardView
+          card={shownCard}
+          on:edit={() => editCard(shownCard)}
+          on:delete={showCardDeletionDialog}
+        />
       </div>
     </Sheet>
   {/if}
 
   {#if cardForm.show}
-    <Sheet hide={() => hideCardForm()}>
+    <Sheet on:hide={() => hideCardForm()}>
       <h2>
         {#if cardForm.type === "edit"}
           Edit a card
@@ -262,6 +294,22 @@
         </form>
       </div>
     </Sheet>
+  {/if}
+
+  {#if isCardDeletionDialogShown}
+    <Alert on:hide={hideCardDeletionDialog}>
+      <h2>Deleting the card</h2>
+      <p>Are you sure you want to delete the {shownCard.store} card?</p>
+
+      <svelte:fragment slot="actions">
+        <button type="button" class="danger filled" on:click={deleteCard}
+          >Delete</button
+        >
+        <button type="button" class="gray" on:click={hideCardDeletionDialog}
+          >Cancel</button
+        >
+      </svelte:fragment>
+    </Alert>
   {/if}
 </main>
 
@@ -313,6 +361,7 @@
   .BigAddButtonText {
     width: 100%;
     font-size: 1.25em;
+    color: var(--gray);
   }
 
   .BigAddButtonText::before {
