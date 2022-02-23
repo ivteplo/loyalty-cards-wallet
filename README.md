@@ -1,4 +1,4 @@
-# Discout Cards Wallet
+# Loyalty Cards Wallet
 
 ## Development
 
@@ -11,13 +11,13 @@
 1. Clone the repository
 
 ```bash
-git clone https://github.com/ivteplo/discount-cards-wallet
+git clone https://github.com/ivteplo/loyalty-cards-wallet
 ```
 
 2. Navigate to the folder
 
 ```bash
-cd discount-cards-wallet
+cd loyalty-cards-wallet
 ```
 
 3. Install dependencies
