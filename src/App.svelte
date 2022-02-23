@@ -187,7 +187,7 @@
   }
 </script>
 
-<main class="column fill">
+<main class="App column fill">
   <h1>Wallet</h1>
 
   {#if cards === undefined}
@@ -316,12 +316,40 @@
 
 <style>
   .CardList {
+    --columns-count: 1;
+
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(10rem, 20rem));
+    grid-template-columns: repeat(var(--columns-count), 1fr);
 
     list-style: none;
     margin-top: 2rem;
     gap: 1rem;
+
+    padding-bottom: 1rem;
+  }
+
+  @media (min-width: 25rem) {
+    .CardList {
+      --columns-count: 2;
+    }
+  }
+
+  @media (min-width: 45rem) {
+    .CardList {
+      --columns-count: 3;
+    }
+  }
+
+  @media (min-width: 60rem) {
+    .CardList {
+      --columns-count: 4;
+    }
+
+    .App {
+      width: 100%;
+      max-width: 60rem;
+      align-self: center;
+    }
   }
 
   .CardList li {
