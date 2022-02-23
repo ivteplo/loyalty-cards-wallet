@@ -328,7 +328,7 @@
     padding-bottom: 1rem;
   }
 
-  @media (min-width: 25rem) {
+  @media (min-width: 23rem) {
     .CardList {
       --columns-count: 2;
     }
@@ -404,6 +404,8 @@
 
   .BigAddButtonText::before {
     content: "+";
-    font-size: 3.5em;
+    font-size: 2.5em;
+    line-height: 0.7;
+    margin-bottom: 0.25rem;
   }
 </style>

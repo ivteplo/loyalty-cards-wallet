@@ -25,5 +25,6 @@
 
   .Card b {
     font-size: 1.75rem;
+    font-weight: 500;
   }
 </style>
