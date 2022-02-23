@@ -164,6 +164,10 @@
     cardForm = cardForm
   }
 
+  // Viewing cards
+  let shownCardIndex
+  $: shownCard = cards ? cards[shownCardIndex] : undefined
+
   function deleteCard() {
     const cardID = shownCard?.id
 
@@ -173,17 +177,14 @@
 
     const cardIndex = cards?.findIndex((card) => card.id === cardID) ?? -1
 
-    if (cardIndex) {
+    if (cardIndex >= 0) {
       cards.splice(cardIndex, 1)
       cards = cards
     }
 
+    shownCardIndex = undefined
     hideCardDeletionDialog()
   }
-
-  // Viewing cards
-  let shownCardIndex
-  $: shownCard = cards ? cards[shownCardIndex] : undefined
 </script>
 
 <main class="column fill">
@@ -203,7 +204,7 @@
       >
     </div>
   {:else}
-    <ul class="CardList row wrap">
+    <ul class="CardList">
       {#each cards as card, cardIndex}
         <li class="column fill">
           <Card
@@ -256,7 +257,7 @@
         {/if}
       </h2>
 
-      <div class="column fill center">
+      <div class="FormWrapper column fill">
         {#if cardForm.message.text}
           <p class="FormMessage {cardForm.message.type}" transition:fade>
             {cardForm.message.text}
@@ -315,6 +316,9 @@
 
 <style>
   .CardList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 20rem));
+
     list-style: none;
     margin-top: 2rem;
     gap: 1rem;
@@ -322,6 +326,10 @@
 
   .CardList li {
     flex-basis: 10rem;
+  }
+
+  .FormWrapper {
+    min-width: 20rem;
   }
 
   .Form {
@@ -339,13 +347,15 @@
   }
 
   .FormMessage {
+    max-width: 100%;
+    box-sizing: border-box;
+
     transition: background-color 0.5s;
     color: var(--background);
 
     padding: 0.5rem 1rem;
-    margin-bottom: 1rem;
+    margin-top: 1rem;
 
-    width: calc(100% - 2rem);
     border-radius: 0.5em;
     font-size: 1.15em;
   }

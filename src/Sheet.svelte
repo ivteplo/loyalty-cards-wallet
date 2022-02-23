@@ -60,6 +60,23 @@
     background: var(--background);
   }
 
+  @media (min-width: 50rem) {
+    .SheetContents {
+      top: 50%;
+      left: 50%;
+      right: auto;
+      bottom: auto;
+      transform: translate(-50%, -50%);
+
+      min-height: auto !important;
+
+      max-height: 90vh;
+      max-width: 90vw;
+
+      border-radius: 1rem;
+    }
+  }
+
   .SheetCloseButton {
     position: absolute;
     right: 0;
