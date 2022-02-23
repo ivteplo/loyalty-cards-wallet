@@ -8,8 +8,6 @@
   --primary: #4d4bf1;
   --danger: #c05757;
   --success: #46a146;
-
-  font-size: 1.25rem;
 }
 
 @media (prefers-color-scheme: dark) {
