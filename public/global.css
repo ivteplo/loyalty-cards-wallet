@@ -6,10 +6,22 @@
   --divider: #cccccc;
   --gray: #444;
   --primary: #4d4bf1;
-  --danger: rgb(192, 87, 87);
-  --success: rgb(70, 161, 70);
+  --danger: #c05757;
+  --success: #46a146;
 
   font-size: 1.25rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #111111;
+    --foreground: #ffffff;
+    --divider: #333;
+    --gray: #ccc;
+    --primary: #4d4bf1;
+    --danger: #ee4242;
+    --success: #46a146;
+  }
 }
 
 * {
@@ -71,6 +83,9 @@ textarea {
 
   border: 0.125em solid var(--divider);
   border-radius: 0.5em;
+
+  background-color: var(--background);
+  color: var(--foreground);
 }
 
 input:disabled {

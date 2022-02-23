@@ -27,7 +27,7 @@
 </script>
 
 <div class="CardView column center">
-  <div class="column center">
+  <div class="CardInfo column center">
     <h2>{card.store}</h2>
     <svg bind:this={svg} />
     <code class="CardNumber">{card.number}</code>
@@ -46,7 +46,11 @@
     justify-content: space-between;
   }
 
-  .CardView h2 {
+  .CardInfo {
+    gap: 1rem;
+  }
+
+  .CardInfo h2 {
     text-align: center;
   }
 

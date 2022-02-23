@@ -73,7 +73,7 @@
         text: "",
       },
       storeName: "",
-      cardNUmber: "",
+      cardNumber: "",
       cardID: undefined,
     }
   }
