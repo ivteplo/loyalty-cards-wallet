@@ -23,7 +23,7 @@
   })(card)
 
   const editCard = () => dispatchEvent("edit")
-  const deleteCard = () => dispatchEvent("delete")
+  const removeCard = () => dispatchEvent("remove")
 </script>
 
 <div class="CardView column center">
@@ -34,8 +34,8 @@
   </div>
   <div class="row CardViewActions">
     <button type="button" class="fill" on:click={editCard}>Edit</button>
-    <button type="button" class="fill danger" on:click={deleteCard}
-      >Delete</button
+    <button type="button" class="fill danger" on:click={removeCard}
+      >Remove</button
     >
   </div>
 </div>
@@ -48,6 +48,7 @@
 
   .CardInfo {
     gap: 1rem;
+    max-width: 90vw;
   }
 
   .CardInfo h2 {
@@ -63,6 +64,8 @@
   .CardNumber {
     font-family: inherit;
     font-size: 2rem;
+    word-break: break-all;
+    text-align: center;
   }
 
   .CardViewActions {

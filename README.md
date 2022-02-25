@@ -1,5 +1,11 @@
 # Loyalty Cards Wallet
 
+One place for all of your loyalty cards.
+
+## Credits
+
+- Icons: [Octicons](https://primer.style/octicons)
+
 ## Development
 
 ### Requirements

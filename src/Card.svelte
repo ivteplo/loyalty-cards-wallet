@@ -1,10 +1,14 @@
 <!-- Copyright (c) 2022 Ivan Teplov -->
 <script>
   export let card
-  export let className = ""
 </script>
 
-<button class="Card column center {className}" type="button" on:click>
+<button
+  type="button"
+  {...$$props}
+  class={`Card column center ${$$props.class}`}
+  on:click
+>
   {#if card}
     <b>{card.store}</b>
   {:else}
@@ -24,7 +28,7 @@
   }
 
   .Card b {
-    font-size: 1.75rem;
+    font-size: 1.25rem;
     font-weight: 500;
   }
 </style>

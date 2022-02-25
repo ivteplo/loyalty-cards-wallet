@@ -11,12 +11,14 @@
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
     "gh-pages": "^3.2.3",
     "rollup": "^2.3.4",
     "rollup-plugin-css-only": "^3.1.0",
     "rollup-plugin-livereload": "^2.0.0",
     "rollup-plugin-svelte": "^7.0.0",
+    "rollup-plugin-svelte-svg": "^1.0.0-beta.6",
     "rollup-plugin-terser": "^7.0.0",
     "svelte": "^3.0.0"
   },
@@ -25,5 +27,14 @@
     "localforage": "^1.10.0",
     "sirv-cli": "^2.0.0",
     "uuid": "^8.3.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ivteplo/loyalty-cards-wallet"
+  },
+  "bugs": {
+    "url": "https://github.com/ivteplo/loyalty-cards-wallet/issues"
+  },
+  "homepage": "https://ivteplo.github.io/loyalty-cards-wallet",
+  "readme": "https://github.com/ivteplo/loyalty-cards-wallet#readme"
 }
