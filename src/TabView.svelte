@@ -52,6 +52,13 @@
     display: flex;
     border-top: 0.0675rem solid var(--divider);
     padding: 0.25rem;
+
+    background-color: var(--background);
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
   }
 
   nav > button {
@@ -66,6 +73,42 @@
   }
 
   main {
-    padding: 2rem 1rem 1rem;
+    padding: 2rem 1rem 2.5rem;
+  }
+
+  @media (min-width: 70rem) {
+    .TabView {
+      flex-direction: row;
+    }
+
+    nav {
+      position: unset;
+      bottom: unset;
+      left: unset;
+      right: unset;
+
+      flex-direction: column;
+
+      border-top: none;
+      border-right: 0.0675rem solid var(--divider);
+
+      min-width: 10rem;
+
+      padding: 2rem 1rem 1rem;
+    }
+
+    nav > button {
+      flex-direction: row;
+      margin-bottom: 0.5rem;
+      gap: 0.5rem;
+    }
+
+    nav > .fill {
+      flex-grow: unset;
+    }
+
+    main {
+      padding: 2rem;
+    }
   }
 </style>
