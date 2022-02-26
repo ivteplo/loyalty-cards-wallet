@@ -5,9 +5,26 @@
   import CardView from "./CardView.svelte"
   import Spinner from "./Spinner.svelte"
   import Alert from "./Alert.svelte"
-  import { v4 as uuid } from "uuid"
   import { fade } from "svelte/transition"
-  import { cards, addCard as addCardToStore } from "./cardsStore"
+  import {
+    cards,
+    addCard as addCardToStore,
+    removeCard,
+    updateCard,
+  } from "./cardsStore"
+
+  function tryDo(func, callback) {
+    try {
+      func()
+    } catch (error) {
+      if (typeof error === "string") {
+        callback(error)
+      } else {
+        console.error(error)
+        callback("Unknown error")
+      }
+    }
+  }
 
   // Form for adding/editing cards:
   /**
@@ -35,9 +52,18 @@
     cardID: undefined,
   }
 
+  function onCardFormError(message) {
+    cardForm.message = {
+      type: "error",
+      text: message,
+    }
+
+    cardForm = cardForm
+  }
+
   let isCardRemovingDialogShown = false
 
-  const showCardDeletionDialog = () => {
+  const showCardRemovingDialog = () => {
     isCardRemovingDialogShown = true
   }
 
@@ -49,6 +75,7 @@
     cardForm = {
       ...cardForm,
       show: false,
+      type: "",
       message: {
         type: "",
         text: "",
@@ -59,31 +86,41 @@
     }
   }
 
-  const showCardForm = () => {
+  const showAddCardForm = () => {
     cardForm = {
       ...cardForm,
       show: true,
+      type: "add",
+      message: {
+        type: "",
+        text: "",
+      },
+      storeName: "",
+      cardNumber: "",
+      cardID: undefined,
     }
   }
 
   function addCard() {
-    addCardToStore({
-      store: cardForm.storeName,
-      number: cardForm.cardNumber,
-    })
+    tryDo(() => {
+      addCardToStore({
+        store: cardForm.storeName,
+        number: cardForm.cardNumber,
+      })
 
-    cardForm.message = {
-      type: "success",
-      text: "Added successfully",
-    }
+      cardForm.message = {
+        type: "success",
+        text: "Added successfully",
+      }
 
-    cardForm.storeName = ""
-    cardForm.cardNumber = ""
+      cardForm.storeName = ""
+      cardForm.cardNumber = ""
 
-    cardForm = cardForm
+      cardForm = cardForm
+    }, onCardFormError)
   }
 
-  function editCard(card) {
+  function openEditCardForm(card) {
     cardForm = {
       show: true,
       type: "edit",
@@ -95,16 +132,16 @@
   }
 
   function saveCard(card) {
-    const index = $cards.findIndex((child) => child.id === card.id)
-    $cards[index] = card
-    $cards = $cards
+    tryDo(() => {
+      updateCard(card)
 
-    cardForm.message = {
-      type: "success",
-      text: "Card was updated successfully",
-    }
+      cardForm.message = {
+        type: "success",
+        text: "Card was updated successfully",
+      }
 
-    cardForm = cardForm
+      cardForm = cardForm
+    }, onCardFormError)
   }
 
   function validateCardFormInput() {
@@ -145,21 +182,14 @@
   let shownCardIndex
   $: shownCard = $cards ? $cards[shownCardIndex] : undefined
 
-  function removeCard() {
+  function onSubmitCardRemoving() {
     const cardID = shownCard?.id
 
-    if (!cardID) {
-      return hideCardRemovingDialog()
+    if (cardID) {
+      removeCard(cardID)
+      shownCardIndex = undefined
     }
 
-    const cardIndex = $cards?.findIndex((card) => card.id === cardID) ?? -1
-
-    if (cardIndex >= 0) {
-      $cards.splice(cardIndex, 1)
-      $cards = $cards
-    }
-
-    shownCardIndex = undefined
     hideCardRemovingDialog()
   }
 </script>
@@ -176,7 +206,7 @@
       <p style="font-weight: 500; margin-bottom: 0.5rem">
         Currently you don't have any cards
       </p>
-      <button type="button" on:click={() => showCardForm()}
+      <button type="button" on:click={() => showAddCardForm()}
         >Click here to add a card</button
       >
     </div>
@@ -199,7 +229,7 @@
           card={null}
           class="fill"
           on:click={() => {
-            showCardForm()
+            showAddCardForm()
           }}
         >
           <span class="BigAddButtonText column fill center"> Add a card </span>
@@ -218,8 +248,8 @@
       <div class="fill column center">
         <CardView
           card={shownCard}
-          on:edit={() => editCard(shownCard)}
-          on:remove={showCardDeletionDialog}
+          on:edit={() => openEditCardForm(shownCard)}
+          on:remove={showCardRemovingDialog}
         />
       </div>
     </Sheet>
@@ -285,8 +315,10 @@
       </p>
 
       <svelte:fragment slot="actions">
-        <button type="button" class="danger filled" on:click={removeCard}
-          >Yes, remove the card</button
+        <button
+          type="button"
+          class="danger filled"
+          on:click={onSubmitCardRemoving}>Yes, remove the card</button
         >
         <button type="button" class="gray" on:click={hideCardRemovingDialog}
           >Cancel</button
