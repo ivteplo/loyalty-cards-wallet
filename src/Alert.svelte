@@ -66,6 +66,10 @@
     gap: 1rem;
   }
 
+  .AlertContentsInformation {
+    gap: 0.25rem;
+  }
+
   .AlertActionButtons {
     gap: 0.5rem;
   }

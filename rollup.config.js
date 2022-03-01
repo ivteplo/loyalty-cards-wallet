@@ -1,3 +1,4 @@
+import injectProcessEnv from "rollup-plugin-inject-process-env"
 import svelte from "rollup-plugin-svelte"
 import commonjs from "@rollup/plugin-commonjs"
 import resolve from "@rollup/plugin-node-resolve"
@@ -73,6 +74,10 @@ export default {
       dedupe: ["svelte"],
     }),
     commonjs(),
+
+    injectProcessEnv({
+      NODE_ENV: production ? "production" : "development",
+    }),
 
     // In dev mode, call `npm run start` once
     // the bundle has been generated
