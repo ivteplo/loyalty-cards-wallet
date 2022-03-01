@@ -1,16 +1,18 @@
 <!-- Copyright (c) 2022 Ivan Teplov -->
 <script>
   import { onMount } from "svelte"
-  import TabView from "./TabView.svelte"
-  import Tab from "./Tab.svelte"
-  import Content from "./Content.svelte"
-  import Alert from "./Alert.svelte"
 
-  import { loadCardsFromStorage } from "./cardsStore"
+  import Content from "./Content.svelte"
   import Settings from "./Settings.svelte"
+
+  import Tab from "./components/Tab.svelte"
+  import TabView from "./components/TabView.svelte"
+  import Alert from "./components/Alert.svelte"
 
   import CardIcon from "./icons/card.svg"
   import SettingsIcon from "./icons/settings.svg"
+
+  import { loadCardsFromStorage } from "./cardsStore"
 
   let isUpdateAlertShown = false
 

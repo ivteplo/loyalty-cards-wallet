@@ -1,11 +1,14 @@
 <!-- Copyright (c) 2022 Ivan Teplov -->
 <script>
+  import Sheet from "./components/Sheet.svelte"
+  import Alert from "./components/Alert.svelte"
+  import Spinner from "./components/Spinner.svelte"
+
   import Card from "./Card.svelte"
-  import Sheet from "./Sheet.svelte"
   import CardView from "./CardView.svelte"
-  import Spinner from "./Spinner.svelte"
-  import Alert from "./Alert.svelte"
+
   import { fade } from "svelte/transition"
+
   import {
     cards,
     addCard as addCardToStore,

@@ -1,6 +1,6 @@
 <!-- Copyright (c) 2022 Ivan Teplov -->
 <script>
-  import Alert from "./Alert.svelte"
+  import Alert from "./components/Alert.svelte"
   import { cards, addCard } from "./cardsStore"
 
   import { version, repository } from "../package.json"
@@ -146,12 +146,15 @@
 
   <section class="column">
     <h2>About</h2>
-    <ul>
+
+    <ul class="column SettingsButtonsList">
       <li>
-        <b>Version: </b>{version}
+        <b>Version</b>: {version}
       </li>
-      <li>
-        <a href={repository.url} target="_blank">Source code</a>
+      <li class="column">
+        <a href={repository.url} target="_blank">
+          Source code
+        </a>
       </li>
     </ul>
   </section>
@@ -215,10 +218,19 @@
     gap: 0.5rem;
   }
 
-  .SettingsButtonsList > button {
+  ul.SettingsButtonsList {
+    list-style: none;
+  }
+
+  .SettingsButtonsList > * {
     text-align: left;
     border: var(--border-size) solid var(--border-color);
     border-radius: var(--border-radius);
+    padding: 0.5em 1em;
+  }
+
+  .SettingsButtonsList > :not(button) {
+    color: var(--gray);
   }
 
   .SettingsButtonsList > button:not(.danger) {
@@ -226,34 +238,29 @@
     color: var(--primary);
   }
 
-  .SettingsButtonsList > button:first-child {
+  .SettingsButtonsList > :first-child {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
   }
 
-  .SettingsButtonsList > button:last-child {
+  .SettingsButtonsList > :last-child {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
   }
 
-  .SettingsButtonsList > button:not(:first-child):not(:last-child) {
+  .SettingsButtonsList > :not(:first-child):not(:last-child) {
     border-radius: 0;
   }
 
-  .SettingsButtonsList > *:not(:last-child) {
+  .SettingsButtonsList > :not(:last-child) {
     border-bottom-width: calc(var(--border-size) / 2);
   }
 
-  .SettingsButtonsList > *:not(:first-child) {
+  .SettingsButtonsList > :not(:first-child) {
     border-top-width: calc(var(--border-size) / 2);
   }
 
   .AlertTitle {
     margin-bottom: 0.25rem;
-  }
-
-  ul {
-    list-style-position: inside;
-    line-height: 2;
   }
 </style>
