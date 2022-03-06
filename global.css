@@ -2,6 +2,7 @@
 
 :root {
   --background: #ffffff;
+  --transparent-background: #fffffff0;
   --foreground: #000000;
   --divider: #cccccc;
   --gray: #444;
@@ -15,6 +16,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #111111;
+    --transparent-background: #111111f0;
     --foreground: #ffffff;
     --divider: #333;
     --gray: #ccc;
@@ -47,12 +49,26 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
+h1,
+h2,
+h3,
+a,
+button,
+label {
+  user-select: none;
+}
+
 h1 {
   font-size: 2.5rem;
 }
 
 h2 {
   font-size: 2rem;
+}
+
+h3 {
+  font-weight: 700;
+  font-size: 1.5rem;
 }
 
 a {
