@@ -187,11 +187,6 @@
     font-size: 1.25rem;
   }
 
-  .FormPreview h3 {
-    font-weight: 700;
-    font-size: 1.5rem;
-  }
-
   .FormMessage {
     max-width: 100%;
     box-sizing: border-box;

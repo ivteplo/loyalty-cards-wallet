@@ -110,13 +110,3 @@
     </Alert>
   {/if}
 </div>
-
-<style>
-  @media (min-width: 60rem) {
-    .App {
-      width: 100%;
-      max-width: 80rem;
-      align-self: center;
-    }
-  }
-</style>

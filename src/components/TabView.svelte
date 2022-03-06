@@ -61,8 +61,15 @@
     right: 0;
   }
 
+  @supports (backdrop-filter: blur(1rem)) {
+    nav {
+      background-color: var(--transparent-background);
+      backdrop-filter: blur(1rem);
+    }
+  }
+
   nav > button {
-    background: var(--background);
+    background: transparent;
     color: var(--foreground);
     align-items: center;
     gap: 0.125rem;
@@ -109,6 +116,13 @@
 
     main {
       padding: 2rem;
+      max-width: 90rem;
+    }
+  }
+
+  @media (min-width: 95rem) {
+    .TabView {
+      justify-content: center;
     }
   }
 </style>

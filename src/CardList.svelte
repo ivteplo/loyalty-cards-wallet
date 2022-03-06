@@ -73,25 +73,25 @@
     }
   }
 
-  @media (min-width: 30rem) {
+  @media (min-width: 35rem) {
     .CardList {
       --columns-count: 3;
     }
   }
 
-  @media (min-width: 40rem) {
+  @media (min-width: 45rem) {
     .CardList {
       --columns-count: 4;
     }
   }
 
-  @media (min-width: 50rem) {
+  @media (min-width: 55rem) {
     .CardList {
       --columns-count: 5;
     }
   }
 
-  @media (min-width: 60rem) {
+  @media (min-width: 65rem) {
     .CardList {
       --columns-count: 6;
     }
