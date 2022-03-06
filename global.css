@@ -8,6 +8,8 @@
   --primary: #4d4bf1;
   --danger: #c05757;
   --success: #46a146;
+  /* Color used by cards that have gradient */
+  --card-foreground: #000000;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -16,6 +18,7 @@
     --foreground: #ffffff;
     --divider: #333;
     --gray: #ccc;
+    --primary: #6c6aff;
     --danger: #ee4242;
   }
 }
