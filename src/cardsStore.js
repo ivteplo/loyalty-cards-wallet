@@ -5,8 +5,6 @@ import { writable, get } from "svelte/store"
 import localForage from "localforage"
 import { randomCardGradient } from "./helpers/randomCardGradient"
 
-window.localForage = localForage
-
 export let cards = writable(undefined)
 let initialized = false
 
