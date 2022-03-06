@@ -2,6 +2,22 @@
 
 One place for all of your loyalty cards.
 
+## Features
+
+- Works offline
+- Each card's background is a randomly generated pastel gradient
+- Supports both light and dark mode
+
+## Screenshots
+
+![Desktop view](screenshots/desktop-light.png)
+
+![Card creation view](screenshots/desktop-light-new-card.png)
+
+![Card view](screenshots/desktop-light-card-view.png)
+
+More screenshots can be found [here](screenshots/)
+
 ## Credits
 
 - Icons: [Octicons](https://primer.style/octicons)
