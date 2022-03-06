@@ -34,7 +34,7 @@ export function saveCardsToStorage() {
   }
 }
 
-export function addCard({ store, number }) {
+export function addCard({ store, number, gradient }) {
   if (!initialized)
     throw "Cannot add a card when the storage is not initialized"
 
@@ -44,7 +44,7 @@ export function addCard({ store, number }) {
       id: uuid(),
       store,
       number,
-      gradient: randomCardGradient(),
+      gradient: gradient || randomCardGradient(),
     },
   ])
 }
@@ -67,7 +67,9 @@ export function updateCard(card) {
   if (!initialized)
     throw "Cannot update a card when the storage is not initialized"
 
-  const index = get(cards)?.findIndex((child) => child.id === card.id)
+  const index = get(cards)?.findIndex((child) => child.id === card.id) ?? -1
+
+  if (index === -1) throw "Could not update the card, since it doesn't exist"
 
   cards.update(($cards) => {
     $cards[index] = card

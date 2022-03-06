@@ -7,61 +7,34 @@
   import Card from "./Card.svelte"
   import CardView from "./CardView.svelte"
 
-  import { fade } from "svelte/transition"
+  import { cards, removeCard } from "./cardsStore"
 
-  import {
-    cards,
-    addCard as addCardToStore,
-    removeCard,
-    updateCard,
-  } from "./cardsStore"
+  import { randomCardGradient } from "./helpers/randomCardGradient"
+  import CardForm from "./CardForm.svelte"
 
-  function tryDo(func, callback) {
-    try {
-      func()
-    } catch (error) {
-      if (typeof error === "string") {
-        callback(error)
-      } else {
-        console.error(error)
-        callback("Unknown error")
-      }
-    }
+  let showCardForm = false
+  let cardForm = {}
+
+  const hideCardForm = () => {
+    showCardForm = false
+    cardForm = {}
   }
 
-  // Form for adding/editing cards:
-  /**
-   * @type {{
-   *   show: boolean,
-   *   type: "add" | "edit",
-   *   message: {
-   *     type: "error" | "success",
-   *     text: string
-   *   },
-   *   storeName: string,
-   *   cardNumber: string,
-   *   cardID?: string
-   * }}
-   */
-  let cardForm = {
-    show: false,
-    type: "add",
-    message: {
-      type: "",
-      text: "",
-    },
-    storeName: "",
-    cardNumber: "",
-    cardID: undefined,
+  const showAddCardForm = () => {
+    cardForm = { formType: "add" }
+    showCardForm = true
   }
 
-  function onCardFormError(message) {
-    cardForm.message = {
-      type: "error",
-      text: message,
+  function openEditCardForm(card) {
+    cardForm = {
+      formType: "edit",
+      store: card.store,
+      number: card.number,
+      id: card.id,
+      gradient: card.gradient,
     }
 
-    cardForm = cardForm
+    showCardForm = true
   }
 
   let isCardRemovingDialogShown = false
@@ -72,113 +45,6 @@
 
   const hideCardRemovingDialog = () => {
     isCardRemovingDialogShown = false
-  }
-
-  const hideCardForm = () => {
-    cardForm = {
-      ...cardForm,
-      show: false,
-      type: "",
-      message: {
-        type: "",
-        text: "",
-      },
-      storeName: "",
-      cardNumber: "",
-      cardID: undefined,
-    }
-  }
-
-  const showAddCardForm = () => {
-    cardForm = {
-      ...cardForm,
-      show: true,
-      type: "add",
-      message: {
-        type: "",
-        text: "",
-      },
-      storeName: "",
-      cardNumber: "",
-      cardID: undefined,
-    }
-  }
-
-  function addCard() {
-    tryDo(() => {
-      addCardToStore({
-        store: cardForm.storeName,
-        number: cardForm.cardNumber,
-      })
-
-      cardForm.message = {
-        type: "success",
-        text: "Added successfully",
-      }
-
-      cardForm.storeName = ""
-      cardForm.cardNumber = ""
-
-      cardForm = cardForm
-    }, onCardFormError)
-  }
-
-  function openEditCardForm(card) {
-    cardForm = {
-      show: true,
-      type: "edit",
-      message: "",
-      storeName: card.store,
-      cardNumber: card.number,
-      cardID: card.id,
-    }
-  }
-
-  function saveCard(card) {
-    tryDo(() => {
-      updateCard(card)
-
-      cardForm.message = {
-        type: "success",
-        text: "Card was updated successfully",
-      }
-
-      cardForm = cardForm
-    }, onCardFormError)
-  }
-
-  function validateCardFormInput() {
-    if (!cardForm.storeName) {
-      cardForm.message = {
-        type: "error",
-        text: "Please, specify store name",
-      }
-    } else if (!/^\d+$/.test(cardForm.cardNumber)) {
-      cardForm.message = {
-        type: "error",
-        text: "Invalid card number",
-      }
-    } else {
-      return true
-    }
-
-    return false
-  }
-
-  function submitCardForm() {
-    if (validateCardFormInput()) {
-      if (cardForm.type === "add") {
-        addCard()
-      } else {
-        saveCard({
-          ...shownCard,
-          store: cardForm.storeName,
-          number: cardForm.cardNumber,
-        })
-      }
-    }
-
-    cardForm = cardForm
   }
 
   // Viewing cards
@@ -258,55 +124,9 @@
     </Sheet>
   {/if}
 
-  {#if cardForm.show}
+  {#if showCardForm}
     <Sheet on:hide={() => hideCardForm()}>
-      <h2>
-        {#if cardForm.type === "edit"}
-          Edit a card
-        {:else}
-          Add a card
-        {/if}
-      </h2>
-
-      <div class="FormWrapper column fill">
-        {#if cardForm.message.text}
-          <p class="FormMessage {cardForm.message.type}" transition:fade>
-            {cardForm.message.text}
-          </p>
-        {/if}
-
-        <form on:submit|preventDefault={submitCardForm} class="Form column">
-          <div class="column">
-            <label for="store-name">Store name</label>
-            <input
-              type="text"
-              id="store-name"
-              placeholder="Store name"
-              bind:value={cardForm.storeName}
-              required
-              autocomplete="off"
-            />
-          </div>
-          <div class="column">
-            <label for="card-number">Card number</label>
-            <input
-              type="text"
-              id="card-number"
-              placeholder="Card number"
-              bind:value={cardForm.cardNumber}
-              required
-              autocomplete="off"
-            />
-          </div>
-          <button type="submit">
-            {#if cardForm.type === "edit"}
-              Save
-            {:else}
-              Add
-            {/if}
-          </button>
-        </form>
-      </div>
+      <CardForm {...cardForm} />
     </Sheet>
   {/if}
 
@@ -383,46 +203,6 @@
 
   .CardList li {
     flex-basis: 10rem;
-  }
-
-  .FormWrapper {
-    min-width: 20rem;
-  }
-
-  .Form {
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-
-  .Form > div {
-    gap: 0.5rem;
-  }
-
-  .Form label {
-    font-weight: 500;
-    font-size: 1.25rem;
-  }
-
-  .FormMessage {
-    max-width: 100%;
-    box-sizing: border-box;
-
-    transition: background-color 0.5s;
-    color: var(--background);
-
-    padding: 0.5rem 1rem;
-    margin-top: 1rem;
-
-    border-radius: 0.5em;
-    font-size: 1.15em;
-  }
-
-  .FormMessage.error {
-    background: var(--danger);
-  }
-
-  .FormMessage.success {
-    background: var(--success);
   }
 
   .BigAddButtonText {

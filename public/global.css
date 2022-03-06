@@ -89,8 +89,6 @@ input:disabled {
 }
 
 button {
-  cursor: pointer;
-
   color: var(--background);
   background-color: var(--primary);
 
@@ -100,6 +98,10 @@ button {
   font-weight: 500;
 
   transition: filter 0.3s;
+}
+
+button:not(:disabled) {
+  cursor: pointer;
 }
 
 button:disabled {

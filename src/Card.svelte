@@ -5,7 +5,7 @@
   export let card
 
   // Migration: add background gradient for cards that were created with older app versions
-  if (card && !card.gradient) {
+  if (card && !card.gradient && card.id) {
     try {
       card = updateCardBackground(card)
     } catch (error) {
@@ -13,8 +13,8 @@
     }
   }
 
-  let style = card?.gradient
-    ? `background: linear-gradient(-45deg, ${card.gradient.from}, ${card.gradient.to}); color: var(--card-foreground)`
+  $: style = card?.gradient
+    ? `background-image: linear-gradient(-45deg, ${card.gradient.from}, ${card.gradient.to}); color: var(--card-foreground); border: none`
     : ""
 </script>
 
@@ -36,7 +36,7 @@
 <style>
   .Card {
     aspect-ratio: 3 / 2;
-    background: var(--background);
+    background-color: var(--background);
     color: var(--foreground);
     padding: 1rem;
     border: 0.125rem solid var(--divider);
