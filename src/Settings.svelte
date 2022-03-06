@@ -81,7 +81,11 @@
   }
 
   function exportCards() {
-    const exportedData = $cards.map((card) => ({ ...card, id: undefined }))
+    const exportedData = $cards.map((card) => ({
+      ...card,
+      id: undefined,
+      gradient: undefined,
+    }))
     const encodedString = encodeURIComponent(JSON.stringify(exportedData))
     const downloadLink = "data:application/json;charset=utf-8," + encodedString
 
@@ -152,9 +156,7 @@
         <b>Version</b>: {version}
       </li>
       <li class="column">
-        <a href={repository.url} target="_blank">
-          Source code
-        </a>
+        <a href={repository.url} target="_blank"> Source code </a>
       </li>
     </ul>
   </section>

@@ -3,6 +3,9 @@
 import { v4 as uuid } from "uuid"
 import { writable, get } from "svelte/store"
 import localForage from "localforage"
+import { randomCardGradient } from "./helpers/randomCardGradient"
+
+window.localForage = localForage
 
 export let cards = writable(undefined)
 let initialized = false
@@ -12,11 +15,8 @@ cards.subscribe(() => saveCardsToStorage())
 export async function loadCardsFromStorage() {
   const items = await localForage.getItem("cards")
 
-  if (!(items instanceof Array)) {
-    cards.set([])
-  } else {
-    cards.set(items)
-  }
+  if (!(items instanceof Array)) cards.set([])
+  else cards.set(items)
 
   initialized = true
 }
@@ -44,6 +44,7 @@ export function addCard({ store, number }) {
       id: uuid(),
       store,
       number,
+      gradient: randomCardGradient(),
     },
   ])
 }
@@ -72,4 +73,14 @@ export function updateCard(card) {
     $cards[index] = card
     return $cards
   })
+}
+
+export function updateCardBackground(card) {
+  const newCard = {
+    ...card,
+    gradient: randomCardGradient(),
+  }
+
+  updateCard(newCard)
+  return newCard
 }

@@ -7,6 +7,32 @@
 
   const dispatchEvent = createEventDispatcher()
 
+  // Barcode colors
+  let colors = {
+    background: null,
+    foreground: null,
+  }
+
+  // CSS media query that checks if the user prefers dark mode
+  const darkModeMedia = window.matchMedia("(prefers-color-scheme: dark)")
+
+  // Function that updates barcode colors
+  const updateColors = () => {
+    // Get :root styles
+    const style = getComputedStyle(document.documentElement)
+
+    // Get colors from CSS variables
+    colors.background = style.getPropertyValue("--background")
+    colors.foreground = style.getPropertyValue("--foreground")
+  }
+
+  // Listen for dark/light mode changes
+  darkModeMedia.addEventListener("change", updateColors)
+
+  // Set initial values
+  updateColors()
+
+  // Barcode SVG
   let svg
 
   $: (function generateBarcode(card) {
@@ -16,6 +42,8 @@
       displayValue: false,
       flat: false,
       height: 75,
+      background: colors.background,
+      lineColor: colors.foreground,
     })
 
     svg.removeAttribute("width")

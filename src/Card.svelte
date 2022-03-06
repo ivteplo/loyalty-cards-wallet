@@ -1,11 +1,28 @@
 <!-- Copyright (c) 2022 Ivan Teplov -->
 <script>
+  import { updateCardBackground } from "./cardsStore"
+
   export let card
+
+  // Migration: add background gradient for cards that were created with older app versions
+  if (card && !card.gradient) {
+    try {
+      card = updateCardBackground(card)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  let style = card?.gradient
+    ? `background: linear-gradient(-45deg, ${card.gradient.from}, ${card.gradient.to}); color: var(--card-foreground)`
+    : ""
 </script>
 
 <button
   type="button"
+  {style}
   {...$$props}
+  card={null}
   class={`Card column center ${$$props.class}`}
   on:click
 >
