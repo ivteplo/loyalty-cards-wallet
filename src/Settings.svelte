@@ -65,13 +65,13 @@
     }
 
     json.forEach((card) => {
-      const { store, number } = card
+      const { store, number, gradient } = card
 
       if (!(typeof store === "string" && typeof number === "string")) {
         return
       }
 
-      addCard({ store, number })
+      addCard({ store, number, gradient })
     })
 
     infoDialog = {
@@ -84,7 +84,6 @@
     const exportedData = $cards.map((card) => ({
       ...card,
       id: undefined,
-      gradient: undefined,
     }))
     const encodedString = encodeURIComponent(JSON.stringify(exportedData))
     const downloadLink = "data:application/json;charset=utf-8," + encodedString
