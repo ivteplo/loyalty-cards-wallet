@@ -1,6 +1,6 @@
 // Copyright (c) 2022 Ivan Teplov
 
-const cacheName = "discountCardsWallet@1.1.4"
+const cacheName = "discountCardsWallet@1.1.5"
 const filesToCache = [
   "index.html",
   "global.css",
