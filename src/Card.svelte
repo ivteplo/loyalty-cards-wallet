@@ -1,6 +1,6 @@
 <!-- Copyright (c) 2022 Ivan Teplov -->
 <script>
-  import { updateCardBackground } from "./cardsStore"
+  import { updateCardBackground } from "./cardStore"
 
   export let card
 

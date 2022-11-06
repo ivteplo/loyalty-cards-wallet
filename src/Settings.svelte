@@ -1,7 +1,7 @@
 <!-- Copyright (c) 2022 Ivan Teplov -->
 <script>
   import Alert from "./components/Alert.svelte"
-  import { cards, addCard } from "./cardsStore"
+  import { cards, addCard } from "./cardStore"
 
   import { version, repository } from "../package.json"
 

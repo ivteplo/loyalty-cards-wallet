@@ -8,6 +8,8 @@ import { randomCardGradient } from "./helpers/randomCardGradient"
 export let cards = writable(undefined)
 let initialized = false
 
+let requestedPersistentStorage = false
+
 cards.subscribe(() => saveCardsToStorage())
 
 export async function loadCardsFromStorage() {
@@ -17,7 +19,13 @@ export async function loadCardsFromStorage() {
   else cards.set(items)
 
   initialized = true
+
+  // If the storage isn't persistent, then we'll request it to be so a bit later
+  navigator?.storage?.persisted().then(isPersisted => {
+    requestedPersistentStorage = isPersisted
+  })
 }
+
 
 export function saveCardsToStorage() {
   if (!initialized) return
@@ -29,6 +37,19 @@ export function saveCardsToStorage() {
       .setItem("cards", cardsToSave || [])
       .then(() => console.log("Saved"))
       .catch((error) => console.error(error))
+  }
+
+  if (!requestedPersistentStorage) {
+    requestedPersistentStorage = true
+
+    // Request the storage to be persistent
+    if (navigator?.storage?.persist) {
+      navigator.storage.persist().then(isPersisted => {
+        console.log(`Persistent storage is ${isPersisted ? "" : "not"} enabled`)
+      }).catch(error => {
+        console.error("There was an error while requesting persistent storage:", error)
+      })
+    }
   }
 }
 

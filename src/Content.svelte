@@ -4,7 +4,7 @@
   import Alert from "./components/Alert.svelte"
   import CardView from "./CardView.svelte"
 
-  import { cards, removeCard } from "./cardsStore"
+  import { cards, removeCard } from "./cardStore"
 
   import CardForm from "./CardForm.svelte"
   import CardList from "./CardList.svelte"

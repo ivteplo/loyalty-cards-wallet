@@ -12,7 +12,7 @@
   import CardIcon from "./icons/card.svg"
   import SettingsIcon from "./icons/settings.svg"
 
-  import { loadCardsFromStorage } from "./cardsStore"
+  import { loadCardsFromStorage } from "./cardStore"
 
   let isUpdateAlertShown = false
 
