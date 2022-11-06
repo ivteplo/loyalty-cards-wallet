@@ -3,7 +3,7 @@
   import Card from "./Card.svelte"
 
   import { randomCardGradient } from "./helpers/randomCardGradient"
-  import { addCard as addCardToStore, updateCard } from "./cardsStore"
+  import { addCard as addCardToStore, updateCard } from "./cardStore"
 
   import { fade } from "svelte/transition"
 

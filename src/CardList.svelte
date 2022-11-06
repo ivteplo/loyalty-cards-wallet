@@ -3,7 +3,7 @@
   import Spinner from "./components/Spinner.svelte"
   import Card from "./Card.svelte"
 
-  import { cards } from "./cardsStore"
+  import { cards } from "./cardStore"
 
   import { createEventDispatcher } from "svelte"
 
