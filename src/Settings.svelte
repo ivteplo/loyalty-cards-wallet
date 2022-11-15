@@ -155,7 +155,7 @@
         <b>Version</b>: {version}
       </li>
       <li class="column">
-        <a href={repository.url} target="_blank"> Source code </a>
+        <a href={repository.url} rel="noreferrer" target="_blank"> Source code </a>
       </li>
     </ul>
   </section>
