@@ -43,11 +43,11 @@
   {#if $areTranslationsLoading}
     <Spinner />
   {:else}
-    <TabView class="fill" defaultTab="Cards">
-      <Tab label="Cards" icon={CardIcon}>
+    <TabView class="fill" defaultTab="cards">
+      <Tab tabID="cards" label={$_("app.navigationBarTabs.cards")} icon={CardIcon}>
         <Content />
       </Tab>
-      <Tab label="Settings" icon={SettingsIcon}>
+      <Tab tabID="settings" label={$_("app.navigationBarTabs.settings")} icon={SettingsIcon}>
         <Settings />
       </Tab>
     </TabView>

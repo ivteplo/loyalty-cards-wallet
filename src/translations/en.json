@@ -1,5 +1,9 @@
 {
   "app": {
+    "navigationBarTabs": {
+      "cards": "Cards",
+      "settings": "Settings"
+    },
     "update": {
       "title": "Update",
       "text": "There is an update available. It will be installed when all tabs for this page are closed.",
@@ -68,11 +72,11 @@
     },
     "successfulImportDialog": {
       "title": "Successful import",
-      "text": "Your cards have been imported successfully"
+      "text": "Cards from the file have been added successfully"
     },
     "successfulExportDialog": {
       "title": "Successful export",
-      "text": "Your cards have been exported successfully"
+      "text": "Now you can quickly add your cards by importing the generated file"
     },
     "title": "Settings",
     "dataSection": {

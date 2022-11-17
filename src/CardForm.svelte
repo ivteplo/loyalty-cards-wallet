@@ -34,10 +34,10 @@
     gradient = randomCardGradient()
   }
 
-  const onCardFormError = (message) => {
+  const onCardFormError = (errorMessage) => {
     message = {
       type: "error",
-      text: message,
+      text: errorMessage,
     }
   }
 

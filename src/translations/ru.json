@@ -1,0 +1,100 @@
+{
+  "app": {
+    "navigationBarTabs": {
+      "cards": "Карты",
+      "settings": "Настройки"
+    },
+    "update": {
+      "title": "Обновление",
+      "text": "Доступно обновление этого приложения. Если это приложение открыто еще и в других вкладках, нужно их закрыть и нажать здесь \"Обновить\".",
+      "reloadButtonText": "Обновить",
+      "cancelButtonText": "Не сейчас"
+    }
+  },
+  "cardForm": {
+    "messages": {
+      "unknownError": "Неизвестная ошибка",
+      "cardAdded": "Карта была успешно добавлена",
+      "cardUpdated": "Карта была успешно изменена",
+      "specifyStore": "Пожалуйста, укажите название магазина",
+      "invalidCard": "Неправильный номер карты"
+    },
+    "editCardTitle": "Изменение карты",
+    "addCardTitle": "Добавление карты",
+    "fields": {
+      "storeName": "Название магазина",
+      "cardNumber": "Номер карты"
+    },
+    "saveButtonText": "Сохранить",
+    "addButtonText": "Добавить",
+    "preview": {
+      "title": "Предпросмотр",
+      "updateColorButtonText": "Изменить цвет карты"
+    }
+  },
+  "cardList": {
+    "noCards": {
+      "text": "Сейчас здесь нет скидочных карт",
+      "buttonText": "Нажмите здесь, чтобы добавить карту"
+    },
+    "newCardButtonText": "Добавить карту"
+  },
+  "cardStore": {
+    "storeIsNotInitialized": "Список карт еще загружается. Пожалуйста, подождите немного и попробуйте снова.",
+    "cardDoesNotExist": "Не удалось обновить карту, потому что она не существует"
+  },
+  "cardView": {
+    "actions": {
+      "editButtonText": "Изменить",
+      "removeButtonText": "Удалить"
+    }
+  },
+  "content": {
+    "removeCardDialog": {
+      "title": "Удаление карты",
+      "text": "Вы уверены, что хотите удалить карту {{store}} из приложения?",
+      "deleteButtonText": "Да, удалить карту",
+      "cancelButtonText": "Нет, оставить карту"
+    }
+  },
+  "settings": {
+    "errors": {
+      "fileUpload": "Ошибка при загрузке файла",
+      "fileRead": "Ошибка при чтении файла",
+      "unsupportedFileFormat": "Формат файла не поддерживается. Может, вы загрузили не тот файл",
+      "errorDialog": {
+        "title": "Ошибка"
+      },
+      "unknownError": {
+        "title": "Неизвестная ошибка",
+        "text": "Пожалуйста, попробуйте еще раз или свяжитесь с разработчиком"
+      }
+    },
+    "successfulImportDialog": {
+      "title": "Успешно импортировано",
+      "text": "Карты из файла были успешно добавлены"
+    },
+    "successfulExportDialog": {
+      "title": "Успешно экспортировано",
+      "text": "Теперь вы сможете быстро добавить все ваши карты в это приложение, импортировав сгенерированный файл"
+    },
+    "title": "Настройки",
+    "dataSection": {
+      "title": "Данные",
+      "importCardsButtonText": "Импортировать карты",
+      "exportCardsButtonText": "Экспортировать карты",
+      "removeAllCardsButtonText": "Удалить все карты"
+    },
+    "aboutSection": {
+      "title": "Про приложение",
+      "appVersionText": "Версия приложения",
+      "linkToRepoText": "Исходный код"
+    },
+    "removeAllCardsDialog": {
+      "title": "Удаление всех карт",
+      "text": "Все карты будут удалены из приложения. Вы точно хотите продолжить?",
+      "removeAllCardsButtonText": "Да, удалить все карты",
+      "cancelButtonText": "Нет, оставить карты"
+    }
+  }
+}

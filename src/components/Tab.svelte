@@ -4,11 +4,12 @@
 
   export let label
   export let icon
+  export let tabID
 
   const { currentTab, addTab } = getContext("tabView")
-  addTab(label, icon)
+  addTab(tabID, label, icon)
 </script>
 
-{#if $currentTab === label}
+{#if $currentTab === tabID}
   <slot />
 {/if}

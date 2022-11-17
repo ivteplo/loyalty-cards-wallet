@@ -95,7 +95,7 @@
   {#if isCardRemovingDialogShown}
     <Alert on:hide={hideCardRemovingDialog}>
       <h2>{$_("content.removeCardDialog.title")}</h2>
-      <p>{$_("content.removeCardDialog.text")}</p>
+      <p>{$_("content.removeCardDialog.text").replace("{{store}}", shownCard.store)}</p>
 
       <svelte:fragment slot="actions">
         <button

@@ -65,3 +65,5 @@ for (const file of translationFiles) {
 if (anyProblems) {
   process.exit(1)
 }
+
+console.log("All the translations have all the required keys")

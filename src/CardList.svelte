@@ -48,7 +48,7 @@
           showAddCardForm()
         }}
       >
-        <span class="BigAddButtonText column fill center">Add a card</span>
+        <span class="BigAddButtonText column fill center">{$_("cardList.newCardButtonText")}</span>
       </Card>
     </li>
   </ul>
