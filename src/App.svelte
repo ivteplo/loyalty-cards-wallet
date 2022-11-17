@@ -1,6 +1,7 @@
 <!-- Copyright (c) 2022 Ivan Teplov -->
 <script>
-  import { useRegisterSW as useRegisterServiceWorker } from 'virtual:pwa-register/svelte'
+  import { useRegisterSW as useRegisterServiceWorker } from "virtual:pwa-register/svelte"
+  import { isLoading as areTranslationsLoading, _ } from "svelte-i18n"
 
   import { onMount } from "svelte"
 
@@ -10,6 +11,7 @@
   import Tab from "./components/Tab.svelte"
   import TabView from "./components/TabView.svelte"
   import Alert from "./components/Alert.svelte"
+  import Spinner from "./components/Spinner.svelte"
 
   import CardIcon from "./icons/card.svg"
   import SettingsIcon from "./icons/settings.svg"
@@ -38,27 +40,28 @@
 </script>
 
 <div class="App column fill">
-  <TabView class="fill" defaultTab="Cards">
-    <Tab label="Cards" icon={CardIcon}>
-      <Content />
-    </Tab>
-    <Tab label="Settings" icon={SettingsIcon}>
-      <Settings />
-    </Tab>
-  </TabView>
+  {#if $areTranslationsLoading}
+    <Spinner />
+  {:else}
+    <TabView class="fill" defaultTab="cards">
+      <Tab tabID="cards" label={$_("app.navigationBarTabs.cards")} icon={CardIcon}>
+        <Content />
+      </Tab>
+      <Tab tabID="settings" label={$_("app.navigationBarTabs.settings")} icon={SettingsIcon}>
+        <Settings />
+      </Tab>
+    </TabView>
 
-  {#if isUpdateAlertShown}
-    <Alert on:hide={hideUpdateAlert}>
-      <h2>Update</h2>
-      <p>
-        There is an update available. It will be installed when all tabs for
-        this page are closed.
-      </p>
+    {#if isUpdateAlertShown}
+      <Alert on:hide={hideUpdateAlert}>
+        <h2>{$_("app.update.title")}</h2>
+        <p>{$_("app.update.text")}</p>
 
-      <svelte:fragment slot="actions">
-        <button type="button" on:click={() => updateServiceWorker(true)}>Reload</button>
-        <button type="button" class="gray" on:click={hideUpdateAlert}>Cancel</button>
-      </svelte:fragment>
-    </Alert>
+        <svelte:fragment slot="actions">
+          <button type="button" on:click={() => updateServiceWorker(true)}>{$_("app.update.reloadButtonText")}</button>
+          <button type="button" class="gray" on:click={hideUpdateAlert}>{$_("app.update.cancelButtonText")}</button>
+        </svelte:fragment>
+      </Alert>
+    {/if}
   {/if}
 </div>

@@ -8,8 +8,8 @@
   let tabs = []
   let currentTab = writable(defaultTab)
 
-  function addTab(label, icon) {
-    tabs = [...tabs, { label, icon }]
+  function addTab(tabID, label, icon) {
+    tabs = [...tabs, { tabID, label, icon }]
   }
 
   setContext("tabView", { currentTab, addTab })
@@ -22,10 +22,10 @@
       <button
         type="button"
         on:click={() => {
-          $currentTab = tab.label
+          $currentTab = tab.tabID
         }}
         class="fill column"
-        class:current={$currentTab === tab.label}
+        class:current={$currentTab === tab.tabID}
       >
         <svelte:component
           this={tab.icon}

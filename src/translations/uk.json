@@ -1,0 +1,100 @@
+{
+  "app": {
+    "navigationBarTabs": {
+      "cards": "Картки",
+      "settings": "Налаштування"
+    },
+    "update": {
+      "title": "Оновлення",
+      "text": "Доступне оновлення для цього додатку. Якщо цей додаток відкритий ще в інших вкладках, треба їх закрити і натиснути тут \"Оновити\".",
+      "reloadButtonText": "Оновити",
+      "cancelButtonText": "Не зараз"
+    }
+  },
+  "cardForm": {
+    "messages": {
+      "unknownError": "Невідома помилка",
+      "cardAdded": "Картка була успішно додана",
+      "cardUpdated": "Картка була успішно змінена",
+      "specifyStore": "Будь ласка, укажіть назву крамниці",
+      "invalidCard": "Неправильний номер картки"
+    },
+    "editCardTitle": "Редагування картки",
+    "addCardTitle": "Додавання картки",
+    "fields": {
+      "storeName": "Назва крамниці",
+      "cardNumber": "Номер картки"
+    },
+    "saveButtonText": "Зберегти",
+    "addButtonText": "Додати",
+    "preview": {
+      "title": "Попередній перегляд",
+      "updateColorButtonText": "Змінити колір картки"
+    }
+  },
+  "cardList": {
+    "noCards": {
+      "text": "Зараз тут нема дисконтних карток",
+      "buttonText": "Натисніть тут, аби додати картку"
+    },
+    "newCardButtonText": "Додати картку"
+  },
+  "cardStore": {
+    "storeIsNotInitialized": "Список карток ще завантажується. Будь ласка, трохи зачекайте і спробуйте знов.",
+    "cardDoesNotExist": "Не вдалося змінити картку, бо вона не існує"
+  },
+  "cardView": {
+    "actions": {
+      "editButtonText": "Змінити",
+      "removeButtonText": "Видалити"
+    }
+  },
+  "content": {
+    "removeCardDialog": {
+      "title": "Видалення картки",
+      "text": "Ви впевнені, що бажаєте видалити з додатку картку {{store}}?",
+      "deleteButtonText": "Так, видалити картку",
+      "cancelButtonText": "Ні, залишити картку"
+    }
+  },
+  "settings": {
+    "errors": {
+      "fileUpload": "Помилки під час вивантаження файлу",
+      "fileRead": "Помилка під час читання файлу",
+      "unsupportedFileFormat": "Формат файлу не підтримується. Можливо, ви обрали не той файл",
+      "errorDialog": {
+        "title": "Помилка"
+      },
+      "unknownError": {
+        "title": "Невідома помилка",
+        "text": "Будь ласка, спробуйте ще раз або зконтактуйте с розробником"
+      }
+    },
+    "successfulImportDialog": {
+      "title": "Успішно імпортовано",
+      "text": "Картки з файлу були додані до додатку"
+    },
+    "successfulExportDialog": {
+      "title": "Успішно експортовано",
+      "text": "Тепер ви зможете швидко додати всі ваші картки в цей додаток, імпортувавши згенерований файл"
+    },
+    "title": "Налаштування",
+    "dataSection": {
+      "title": "Дані",
+      "importCardsButtonText": "Імпортувати картки",
+      "exportCardsButtonText": "Експортувати картки",
+      "removeAllCardsButtonText": "Видалити всі картки"
+    },
+    "aboutSection": {
+      "title": "Про додаток",
+      "appVersionText": "Версія додатка",
+      "linkToRepoText": "Початковий код"
+    },
+    "removeAllCardsDialog": {
+      "title": "Видалення всіх карток",
+      "text": "Всі картки будуть видалені з додатка. Ви точно хочете продовжити?",
+      "removeAllCardsButtonText": "Так, видалити всі картки",
+      "cancelButtonText": "Ні, залишити картки"
+    }
+  }
+}

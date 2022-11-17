@@ -1,7 +1,8 @@
 <!-- Copyright (c) 2022 Ivan Teplov -->
 <script>
-  import Barcode from "jsbarcode"
   import { createEventDispatcher } from "svelte"
+  import { _ } from "svelte-i18n"
+  import Barcode from "jsbarcode"
 
   export let card
 
@@ -61,10 +62,12 @@
     <code class="CardNumber">{card.number}</code>
   </div>
   <div class="row CardViewActions">
-    <button type="button" class="fill" on:click={editCard}>Edit</button>
-    <button type="button" class="fill danger" on:click={removeCard}
-      >Remove</button
-    >
+    <button type="button" class="fill" on:click={editCard}>
+      {$_("cardView.actions.editButtonText")}
+    </button>
+    <button type="button" class="fill danger" on:click={removeCard}>
+      {$_("cardView.actions.removeButtonText")}
+    </button>
   </div>
 </div>
 

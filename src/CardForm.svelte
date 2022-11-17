@@ -1,11 +1,12 @@
 <!-- Copyright (c) 2022 Ivan Teplov -->
 <script>
+  import { fade } from "svelte/transition"
+  import { _ } from "svelte-i18n"
+
   import Card from "./Card.svelte"
 
   import { randomCardGradient } from "./helpers/randomCardGradient"
   import { addCard as addCardToStore, updateCard } from "./cardStore"
-
-  import { fade } from "svelte/transition"
 
   /** @type {"add"|"edit"} */
   export let formType = "add"
@@ -33,10 +34,10 @@
     gradient = randomCardGradient()
   }
 
-  const onCardFormError = (message) => {
+  const onCardFormError = (errorMessage) => {
     message = {
       type: "error",
-      text: message,
+      text: errorMessage,
     }
   }
 
@@ -46,7 +47,7 @@
     } catch (error) {
       if (typeof error !== "string") {
         console.error(error)
-        error = "Unknown error"
+        error = $_("cardForm.messages.unknownError")
       }
 
       onCardFormError(error)
@@ -63,7 +64,7 @@
 
       message = {
         type: "success",
-        text: "Added successfully",
+        text: $_("cardForm.messages.cardAdded"),
       }
 
       store = ""
@@ -76,15 +77,15 @@
 
       message = {
         type: "success",
-        text: "Card was updated successfully",
+        text: $_("cardForm.messages.cardUpdated")
       }
     })
 
   const validateCardFormInput = () => {
     if (!store) {
-      onCardFormError("Please, specify store name")
+      onCardFormError($_("cardForm.messages.specifyStore"))
     } else if (!/^\d+$/.test(number)) {
-      onCardFormError("Invalid card number")
+      onCardFormError($_("cardForm.messages.invalidCard"))
     } else {
       return true
     }
@@ -110,9 +111,9 @@
 
 <h2>
   {#if formType === "edit"}
-    Edit a card
+    {$_("cardForm.editCardTitle")}
   {:else}
-    Add a card
+    {$_("cardForm.addCardTitle")}
   {/if}
 </h2>
 
@@ -125,22 +126,22 @@
 
   <form on:submit|preventDefault={submitCardForm} class="Form column">
     <div class="column">
-      <label for="store-name">Store name</label>
+      <label for="store-name">{$_("cardForm.fields.storeName")}</label>
       <input
         type="text"
         id="store-name"
-        placeholder="Store name"
+        placeholder={$_("cardForm.fields.storeName")}
         bind:value={store}
         required
         autocomplete="off"
       />
     </div>
     <div class="column">
-      <label for="card-number">Card number</label>
+      <label for="card-number">{$_("cardForm.fields.cardNumber")}</label>
       <input
         type="text"
         id="card-number"
-        placeholder="Card number"
+        placeholder={$_("cardForm.fields.cardNumber")}
         bind:value={number}
         required
         autocomplete="off"
@@ -149,19 +150,19 @@
 
     <button type="submit">
       {#if formType === "edit"}
-        Save
+        {$_("cardForm.saveButtonText")}
       {:else}
-        Add
+        {$_("cardForm.addButtonText")}
       {/if}
     </button>
 
     <section class="FormPreview column">
-      <h3>Preview</h3>
+      <h3>{$_("cardForm.preview.title")}</h3>
 
       <Card disabled role="img" bind:card={cardPreviewData} />
 
       <button type="button" class="gray" on:click={changeCardGradient}>
-        Update color
+        {$_("cardForm.preview.updateColorButtonText")}
       </button>
     </section>
   </form>

@@ -1,5 +1,7 @@
 // Copyright (c) 2022 Ivan Teplov
 
+import "./translations"
+
 import App from "./App.svelte"
 import "./index.css"
 
