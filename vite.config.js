@@ -14,7 +14,7 @@ export default defineConfig({
     }),
     svelte({}),
     VitePWA({
-      registerType: "autoUpdate",
+      registerType: "prompt",
       manifest: {
         name: "Loyalty Card Wallet",
         short_name: "Wallet",

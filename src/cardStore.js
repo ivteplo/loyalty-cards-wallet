@@ -26,7 +26,6 @@ export async function loadCardsFromStorage() {
   })
 }
 
-
 export function saveCardsToStorage() {
   if (!initialized) return
 
