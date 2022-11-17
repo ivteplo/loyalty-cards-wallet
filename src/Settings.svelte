@@ -1,9 +1,10 @@
 <!-- Copyright (c) 2022 Ivan Teplov -->
 <script>
+  import { version, repository } from "../package.json"
+  import { _ } from "svelte-i18n"
+
   import Alert from "./components/Alert.svelte"
   import { cards, addCard } from "./cardStore"
-
-  import { version, repository } from "../package.json"
 
   const jsonFileType = "*.json,application/json,application/JSON"
 
@@ -27,7 +28,7 @@
       })
 
       fileUploadInput.addEventListener("error", () => {
-        reject("Error while uploading a file")
+        reject($_("settings.errors.fileUpload"))
       })
 
       fileUploadInput.click()
@@ -43,7 +44,7 @@
       })
 
       reader.addEventListener("error", () => {
-        reject("Error while reading the file")
+        reject($_("settings.errors.fileRead"))
       })
 
       reader.readAsText(file)
@@ -57,11 +58,11 @@
     try {
       var json = JSON.parse(contents)
     } catch (error) {
-      throw "Error while reading the file's contents"
+      throw $_("settings.errors.fileRead")
     }
 
     if (!(json instanceof Array)) {
-      throw "File cannot be used for importing cards. The format is unsupported"
+      throw $_("settings.errors.unsupportedFileFormat")
     }
 
     json.forEach((card) => {
@@ -75,8 +76,8 @@
     })
 
     infoDialog = {
-      title: "Successful import",
-      contents: "Your cards were imported successfully",
+      title: $_("settings.successfulImportDialog.title"),
+      contents: $_("settings.successfulImportDialog.text")
     }
   }
 
@@ -94,24 +95,34 @@
     linkElement.click()
 
     infoDialog = {
-      title: "Successful export",
-      contents: "Your cards were exported successfully",
+      title: $_("settings.successfulExportDialog.title"),
+      contents: $_("settings.successfulExportDialog.text"),
     }
   }
 
   function tryDo(func) {
-    func().catch((error) => {
+    const wrapper = async () => {
+      const value = func()
+
+      if (value instanceof Promise) {
+        return await value
+      }
+
+      return value
+    }
+
+    wrapper().catch((error) => {
       if (typeof error === "string") {
         infoDialog = {
-          title: "Error",
+          title: $_("settings.errors.errorDialog.title"),
           contents: error,
         }
       } else {
         console.error(error)
 
         infoDialog = {
-          title: "Unknown Error",
-          contents: "Please, try again or contact the developer",
+          title: $_("settings.errors.unknownError.title"),
+          contents: $_("settings.errors.unknownError.text")
         }
       }
     })
@@ -119,43 +130,51 @@
 </script>
 
 <div class="Settings column">
-  <h1>Settings</h1>
+  <h1>{$_("settings.title")}</h1>
 
   <section class="column">
-    <h2>Data</h2>
+    <h2>{$_("settings.dataSection.title")}</h2>
 
     <div class="column SettingsButtonsList">
       <button
         type="button"
         on:click={() => {
           tryDo(importCards)
-        }}>Import cards</button
+        }}
       >
+        {$_("settings.dataSection.importCardsButtonText")}
+      </button>
       <button
         type="button"
         on:click={() => {
           tryDo(exportCards)
-        }}>Export cards</button
+        }}
       >
+        {$_("settings.dataSection.exportCardsButtonText")}
+      </button>
       <button
         type="button"
         class="danger"
         on:click={() => {
           confirmRemovingAllCards = true
-        }}>Remove all cards</button
+        }}
       >
+        {$_("settings.dataSection.removeAllCardsButtonText")}
+      </button>
     </div>
   </section>
 
   <section class="column">
-    <h2>About</h2>
+    <h2>{$_("settings.aboutSection.title")}</h2>
 
     <ul class="column SettingsButtonsList">
       <li>
-        <b>Version</b>: {version}
+        <b>{$_("settings.aboutSection.appVersionText")}</b>: {version}
       </li>
       <li class="column">
-        <a href={repository.url} rel="noreferrer" target="_blank"> Source code </a>
+        <a href={repository.url} rel="noreferrer" target="_blank">
+          {$_("settings.aboutSection.linkToRepoText")}
+        </a>
       </li>
     </ul>
   </section>
@@ -179,11 +198,8 @@
 
   {#if confirmRemovingAllCards}
     <Alert>
-      <h2 class="AlertTitle">Removing All Cards</h2>
-      <p>
-        All the cards will disappear from the app. Are you sure you want to
-        continue?
-      </p>
+      <h2 class="AlertTitle">{$_("settings.removeAllCardsDialog.title")}</h2>
+      <p>{$_("settings.removeAllCardsDialog.text")}</p>
 
       <svelte:fragment slot="actions">
         <button
@@ -192,15 +208,19 @@
           on:click={() => {
             $cards = []
             confirmRemovingAllCards = false
-          }}>Yes, remove all cards</button
+          }}
         >
+          {$_("settings.removeAllCardsDialog.removeAllCardsButtonText")}
+        </button>
         <button
           type="button"
           class="gray"
           on:click={() => {
             confirmRemovingAllCards = false
-          }}>Cancel</button
+          }}
         >
+          {$_("settings.removeAllCardsDialog.cancelButtonText")}
+        </button>
       </svelte:fragment>
     </Alert>
   {/if}

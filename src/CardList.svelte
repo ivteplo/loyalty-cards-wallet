@@ -1,11 +1,12 @@
 <!-- Copyright (c) 2022 Ivan Teplov -->
 <script>
+  import { createEventDispatcher } from "svelte"
+  import { _ } from "svelte-i18n"
+
   import Spinner from "./components/Spinner.svelte"
   import Card from "./Card.svelte"
 
   import { cards } from "./cardStore"
-
-  import { createEventDispatcher } from "svelte"
 
   const dispatchEvent = createEventDispatcher()
 
@@ -25,11 +26,11 @@
 {:else if $cards.length === 0}
   <div class="fill column center">
     <p style="font-weight: 500; margin-bottom: 0.5rem">
-      Currently you don't have any cards
+      {$_("cardList.noCards.text")}
     </p>
-    <button type="button" on:click={() => showAddCardForm()}
-      >Click here to add a card</button
-    >
+    <button type="button" on:click={() => showAddCardForm()}>
+      {$_("cardList.noCards.buttonText")}
+    </button>
   </div>
 {:else}
   <ul class="CardList">

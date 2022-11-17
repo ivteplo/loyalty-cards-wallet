@@ -1,0 +1,96 @@
+{
+  "app": {
+    "update": {
+      "title": "Update",
+      "text": "There is an update available. It will be installed when all tabs for this page are closed.",
+      "reloadButtonText": "Reload",
+      "cancelButtonText": "Cancel"
+    }
+  },
+  "cardForm": {
+    "messages": {
+      "unknownError": "Unknown error",
+      "cardAdded": "The card has been added successfully",
+      "cardUpdated": "Card has been updated successfully",
+      "specifyStore": "Please, specify the store name",
+      "invalidCard": "Invalid card number"
+    },
+    "editCardTitle": "Edit a card",
+    "addCardTitle": "Add a card",
+    "fields": {
+      "storeName": "Store name",
+      "cardNumber": "Card number"
+    },
+    "saveButtonText": "Save",
+    "addButtonText": "Add",
+    "preview": {
+      "title": "Preview",
+      "updateColorButtonText": "Update the card color"
+    }
+  },
+  "cardList": {
+    "noCards": {
+      "text": "Currently, you don't have any cards",
+      "buttonText": "Click here to add a card"
+    },
+    "newCardButtonText": "Add a card"
+  },
+  "cardStore": {
+    "storeIsNotInitialized": "The list of cards is still loading. Please wait and try again later.",
+    "cardDoesNotExist": "Could not update the card, because it doesn't exist"
+  },
+  "cardView": {
+    "actions": {
+      "editButtonText": "Edit",
+      "removeButtonText": "Remove"
+    }
+  },
+  "content": {
+    "removeCardDialog": {
+      "title": "Removing the card",
+      "text": "Are you sure you want to remove the {{store}} card from the app?",
+      "deleteButtonText": "Yes, remove the card",
+      "cancelButtonText": "Cancel"
+    }
+  },
+  "settings": {
+    "errors": {
+      "fileUpload": "Error while uploading a file",
+      "fileRead": "Error while reading the file contents",
+      "unsupportedFileFormat": "The file format is not supported. Perhaps you have opened a wrong file",
+      "errorDialog": {
+        "title": "Error"
+      },
+      "unknownError": {
+        "title": "Unknown error",
+        "text": "Please, try again or contact the developer"
+      }
+    },
+    "successfulImportDialog": {
+      "title": "Successful import",
+      "text": "Your cards have been imported successfully"
+    },
+    "successfulExportDialog": {
+      "title": "Successful export",
+      "text": "Your cards have been exported successfully"
+    },
+    "title": "Settings",
+    "dataSection": {
+      "title": "Data",
+      "importCardsButtonText": "Import cards",
+      "exportCardsButtonText": "Export cards",
+      "removeAllCardsButtonText": "Remove all cards"
+    },
+    "aboutSection": {
+      "title": "About",
+      "appVersionText": "App version",
+      "linkToRepoText": "Source code"
+    },
+    "removeAllCardsDialog": {
+      "title": "Removing all cards",
+      "text": "All the cards are going to disappear from the app. Are you sure you want to continue?",
+      "removeAllCardsButtonText": "Yes, remove all cards",
+      "cancelButtonText": "Cancel"
+    }
+  }
+}

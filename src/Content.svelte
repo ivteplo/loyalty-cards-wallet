@@ -1,5 +1,7 @@
 <!-- Copyright (c) 2022 Ivan Teplov -->
 <script>
+  import { _ } from "svelte-i18n"
+
   import Sheet from "./components/Sheet.svelte"
   import Alert from "./components/Alert.svelte"
   import CardView from "./CardView.svelte"
@@ -92,20 +94,24 @@
 
   {#if isCardRemovingDialogShown}
     <Alert on:hide={hideCardRemovingDialog}>
-      <h2>Removing the card</h2>
-      <p>
-        Are you sure you want to remove the {shownCard.store} card from the app?
-      </p>
+      <h2>{$_("content.removeCardDialog.title")}</h2>
+      <p>{$_("content.removeCardDialog.text")}</p>
 
       <svelte:fragment slot="actions">
         <button
           type="button"
           class="danger filled"
-          on:click={onSubmitCardRemoving}>Yes, remove the card</button
+          on:click={onSubmitCardRemoving}
         >
-        <button type="button" class="gray" on:click={hideCardRemovingDialog}
-          >Cancel</button
+          {$_("content.removeCardDialog.deleteButtonText")}
+        </button>
+        <button
+          type="button"
+          class="gray"
+          on:click={hideCardRemovingDialog}
         >
+          {$_("content.removeCardDialog.cancelButtonText")}
+        </button>
       </svelte:fragment>
     </Alert>
   {/if}

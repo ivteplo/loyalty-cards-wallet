@@ -1,9 +1,11 @@
 // Copyright (c) 2022 Ivan Teplov
 
-import { v4 as uuid } from "uuid"
+import { randomCardGradient } from "./helpers/randomCardGradient"
+
 import { writable, get } from "svelte/store"
 import localForage from "localforage"
-import { randomCardGradient } from "./helpers/randomCardGradient"
+import { v4 as uuid } from "uuid"
+import { _ } from "svelte-i18n"
 
 export let cards = writable(undefined)
 let initialized = false
@@ -54,7 +56,7 @@ export function saveCardsToStorage() {
 
 export function addCard({ store, number, gradient }) {
   if (!initialized)
-    throw "Cannot add a card when the storage is not initialized"
+    throw get(_)("cardStore.storeIsNotInitialized")
 
   cards.update(($cards) => [
     ...($cards || []),
@@ -69,7 +71,7 @@ export function addCard({ store, number, gradient }) {
 
 export function removeCard(cardID) {
   if (!initialized)
-    throw "Cannot remove a card when the storage is not initialized"
+    throw get(_)("cardStore.storeIsNotInitialized")
 
   const cardIndex = get(cards).findIndex((card) => card.id === cardID) ?? -1
 
@@ -83,11 +85,12 @@ export function removeCard(cardID) {
 
 export function updateCard(card) {
   if (!initialized)
-    throw "Cannot update a card when the storage is not initialized"
+    throw get(_)("cardStore.storeIsNotInitialized")
 
   const index = get(cards)?.findIndex((child) => child.id === card.id) ?? -1
 
-  if (index === -1) throw "Could not update the card, since it doesn't exist"
+  if (index === -1)
+    throw get(_)("cardStore.cardDoesNotExist")
 
   cards.update(($cards) => {
     $cards[index] = card
