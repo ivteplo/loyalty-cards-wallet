@@ -9,7 +9,7 @@
     "dev": "vite",
     "start": "vite preview",
     "build:github-pages": "vite build --base /loyalty-cards-wallet/",
-    "deploy": "gh-pages -d public",
+    "deploy": "gh-pages -d dist",
     "validate-translations": "node scripts/validateTranslations.js"
   },
   "devDependencies": {
