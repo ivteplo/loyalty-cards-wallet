@@ -17,6 +17,7 @@ export default defineConfig({
       registerType: "prompt",
       manifest: {
         name: "Loyalty Card Wallet",
+        lang: undefined,
         short_name: "Wallet",
         description: "One place for all of your loyalty cards",
         background_color: "#fff",
