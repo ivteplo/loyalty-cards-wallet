@@ -16,10 +16,11 @@ export default defineConfig({
     VitePWA({
       registerType: "prompt",
       manifest: {
-        name: "Loyalty Card Wallet",
+        name: "Loyalty Cards Wallet",
+        lang: undefined,
         short_name: "Wallet",
         description: "One place for all of your loyalty cards",
-        background_color: "#fff",
+        background_color: "#000",
         theme_color: "#4d4bf1",
         categories: ["finance", "shopping"],
         icons: [
