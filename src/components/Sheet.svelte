@@ -56,7 +56,7 @@
     z-index: 2;
 
     box-sizing: border-box;
-    max-height: 100vh;
+    max-height: calc(100vh - 1rem);
 
     padding: 1rem;
     border-radius: 1rem 1rem 0 0;
